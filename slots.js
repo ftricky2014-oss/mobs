@@ -22,7 +22,7 @@ var slotMachine = {
 
 	winningsFormatPrefix: '',  // If winnings are "money", set prefix to be '$', '£', etc. If everything is unit-less, leave as is.
 
-	spinURL: 'slots/spin.php', // point to the server component to call to get spin results.
+	spinURL: 'https://top.newmobsters.com/slots/spin.php', // point to the server component to call to get spin results.
 
 	curBet: minBet,
 	soundEnabled: true,
@@ -44,10 +44,6 @@ var slotMachine = {
 				slotMachine.sounds['fastpayout'] = soundManager.createSound({id: "fastpayout", url: 'sounds/fastpayout.mp3'});
 				slotMachine.sounds['spinning'] = soundManager.createSound({id: "spinning", url: 'sounds/spinning.mp3'});
 			};
-		}
-
-		if (slotMachine.get_balance() < minBet) {
-			
 		}
 	},
 
@@ -85,10 +81,7 @@ get_balance: function(addAmount = 1000) {
 				($this.attr("data-payoutPrefix") || "") + parseInt($this.attr("data-basePayout"), 10) * slotMachine.curBet + ($this.attr("data-payoutSuffix") || "")
 			);
 		});
-		
-		if (slotMachine.get_balance() >= slotMachine.curBet) {
 			slotMachine.enable_spin_button();
-		}
 	},
 
 	toggle_sound: function() {
@@ -219,10 +212,7 @@ get_balance: function(addAmount = 1000) {
 		if (typeof data.lastWin != "undefined") { $('#lastWin').html(data.lastWin); }
 		
 		slotMachine.spinning = false;
-		
-		if (slotMachine.get_balance() >= slotMachine.curBet) {
-			slotMachine.enable_spin_button();
-		}
+		slotMachine.enable_spin_button();
 	},
 
 	_increment_payout_counter: function(data) {
